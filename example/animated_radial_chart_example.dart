@@ -20,13 +20,13 @@ class _AnimatedRadialChartExampleState
   final _chartSize = const Size(200.0, 200.0);
 
   double value = 50.0;
-  Color labelColor = Colors.blue[200];
+  Color? labelColor = Colors.blue[200];
 
   void _increment() {
     setState(() {
       value += 10;
       List<CircularStackEntry> data = _generateChartData(value);
-      _chartKey.currentState.updateData(data);
+      _chartKey.currentState!.updateData(data);
     });
   }
 
@@ -34,12 +34,12 @@ class _AnimatedRadialChartExampleState
     setState(() {
       value -= 10;
       List<CircularStackEntry> data = _generateChartData(value);
-      _chartKey.currentState.updateData(data);
+      _chartKey.currentState!.updateData(data);
     });
   }
 
   List<CircularStackEntry> _generateChartData(double value) {
-    Color dialColor = Colors.blue[200];
+    Color? dialColor = Colors.blue[200];
     if (value < 0) {
       dialColor = Colors.red[200];
     } else if (value < 50) {
@@ -80,10 +80,9 @@ class _AnimatedRadialChartExampleState
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _labelStyle = Theme
-        .of(context)
+    TextStyle _labelStyle = Theme.of(context)
         .textTheme
-        .title
+        .titleMedium!
         .merge(new TextStyle(color: labelColor));
 
     return new Scaffold(
@@ -107,19 +106,25 @@ class _AnimatedRadialChartExampleState
           new Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              new RaisedButton(
+              ElevatedButton(
                 onPressed: _decrement,
                 child: const Icon(Icons.remove),
-                shape: const CircleBorder(),
-                color: Colors.red[200],
-                textColor: Colors.white,
+                style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    backgroundColor: Colors.red[200],
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                    )),
               ),
-              new RaisedButton(
+              new ElevatedButton(
                 onPressed: _increment,
                 child: const Icon(Icons.add),
-                shape: const CircleBorder(),
-                color: Colors.blue[200],
-                textColor: Colors.white,
+                style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    backgroundColor: Colors.blue[200],
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                    )),
               ),
             ],
           ),
